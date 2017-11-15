@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 app = express();
+app.set('view engine','ejs');
 
 var SECRETKEY1 = 'I want to pass COMPS381F';
 var SECRETKEY2 = 'Keep this to yourself';
@@ -21,15 +22,16 @@ app.use(session({
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 app.get('/',function(req,res) {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
+	} else {
+		res.status(200);
+		res.render('secrets',{name:req.session.username});
 	}
-	res.status(200).end('Hello, ' + req.session.username +
-	  '!  This is a secret page!');
 });
 
 app.get('/login',function(req,res) {
