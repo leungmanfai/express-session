@@ -22,20 +22,25 @@ var products = [
 
 app.set('view engine', 'ejs');
 
-app.get("/read", function(req,res) {
-	res.render("list", {c: products});
+app.get('/',function(req,res) {
+	res.redirect('/read');
+});
+
+app.get('/read', function(req,res) {
+	res.render('list', {c: products});
 });
 
 app.get('/showdetails', function(req,res) {
-	if (req.query.id != null) {
-		for (var i=0; i<products.length; i++) {
+	var product = null;
+	if (req.query.id) {
+		for (i in products) {
 			if (products[i].id == req.query.id) {
-				var product = products[i];
+				product = products[i]
 				break;
 			}
 		}
-		if (product != null) {
-			res.render('details', {c: product});
+		if (product) {
+			res.render('details', {c: products[i]});							
 		} else {
 			res.status(500).end(req.query.id + ' not found!');
 		}

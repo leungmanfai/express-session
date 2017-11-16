@@ -4,13 +4,12 @@
     "author": "Raymond SO <rso@ouhk.edu.hk>",
     "version": "0.0.1",
     "dependencies": {
-        "mongoose": "*",
         "express": "*",
         "ejs": "*",
-        "express-session": "*",
-        "body-parser": "*",
-        "express-fileupload": "*"
+        "express-session": "*"
     },
     "engine": "node >= 0.10.0",
-    "scripts": {"start": "node server"}
+    "scripts": {
+        "start": "node server"
+    }
 }
