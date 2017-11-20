@@ -6,6 +6,7 @@
     "dependencies": {
         "express": "*",
         "ejs": "*",
+        "body-parser": "*",
         "express-session": "*"
     },
     "engine": "node >= 0.10.0",
