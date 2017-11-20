@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var fileUpload = require('express-fileupload');
 
 var SECRETKEY = 'I want to pass COMPS381F';
 
