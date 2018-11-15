@@ -14,4 +14,4 @@ npm install
 npm start
 ```
 ### Testing
-Go to http://localhost:8099/index.html
+Go to http://localhost:8099
