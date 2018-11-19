@@ -5,7 +5,7 @@ var session = require('express-session');
 
 var SECRETKEY = 'I want to pass COMPS381F';
 
-app.use(fileUpload());
+//`app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(session({
 	secret: SECRETKEY,
