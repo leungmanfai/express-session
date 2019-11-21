@@ -19,31 +19,30 @@ app.use(session({
   name: 'session',
   keys: [SECRETKEY1,SECRETKEY2]
 }));
+
 // support parsing of application/json type post data
 app.use(bodyParser.json());
-//support parsing of application/x-www-form-urlencoded post data
+// support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
 app.get('/', (req,res) => {
 	console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
-		res.status(200);
-		res.render('secrets',{name:req.session.username});
+		res.status(200).render('secrets',{name:req.session.username});
 	}
 });
 
 app.get('/login', (req,res) => {
-	res.sendFile(__dirname + '/public/login.html');
+	res.status(200).sendFile(__dirname + '/public/login.html');
 });
 
 app.post('/login', (req,res) => {
 	users.forEach((user) => {
 		if (user.name == req.body.name && user.password == req.body.password) {
 			req.session.authenticated = true;
-			req.session.username = users.name;			
+			req.session.username = user.name;			
 		}
 	});
 	res.redirect('/');
