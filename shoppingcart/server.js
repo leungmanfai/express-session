@@ -5,12 +5,13 @@ const session = require('express-session');
 
 const SECRETKEY = 'I want to pass COMPS381F';
 
-//`app.use(fileUpload());
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 
 //support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));app.use(session({
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
 	secret: SECRETKEY,
 	resave: true,
 	saveUninitialized: true
