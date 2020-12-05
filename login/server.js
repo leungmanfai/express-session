@@ -5,8 +5,7 @@ const app = express();
 
 app.set('view engine','ejs');
 
-const SECRETKEY1 = 'I want to pass COMPS381F';
-const SECRETKEY2 = 'Keep this to yourself';
+const SECRETKEY = 'I want to pass COMPS381F';
 
 const users = new Array(
 	{name: 'developer', password: 'developer'},
@@ -17,17 +16,16 @@ app.set('view engine','ejs');
 
 app.use(session({
   name: 'loginSession',
-  keys: [SECRETKEY1,SECRETKEY2]
+  keys: [SECRETKEY]
 }));
 
 // support parsing of application/json type post data
 app.use(bodyParser.json());
-// support parsing of application/x-www-form-urlencoded post data
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req,res) => {
-	//console.log(req.session);
-	if (!req.session.authenticated) {
+	console.log(req.session);
+	if (!req.session.authenticated) {    // user not logged in!
 		res.redirect('/login');
 	} else {
 		res.status(200).render('secrets',{name:req.session.username});
@@ -41,15 +39,17 @@ app.get('/login', (req,res) => {
 app.post('/login', (req,res) => {
 	users.forEach((user) => {
 		if (user.name == req.body.name && user.password == req.body.password) {
-			req.session.authenticated = true;
-			req.session.username = req.body.name;			
+			// correct user name + password
+			// store the following name/value pairs in cookie session
+			req.session.authenticated = true;        // 'authenticated': true
+			req.session.username = req.body.name;	 // 'username': req.body.name		
 		}
 	});
 	res.redirect('/');
 });
 
 app.get('/logout', (req,res) => {
-	req.session = null;
+	req.session = null;   // clear cookie-session
 	res.redirect('/');
 });
 
