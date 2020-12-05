@@ -1,6 +1,6 @@
 {
     "name": "server",
-    "description": "NodeJS Session",
+    "description": "Node.js Session",
     "author": "Raymond SO <rso@ouhk.edu.hk>",
     "version": "0.0.1",
     "dependencies": {
