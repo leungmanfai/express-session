@@ -1,20 +1,12 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const session = require('express-session');
+const session = require('cookie-session');
 
 const SECRETKEY = 'I want to pass COMPS381F';
 
-// support parsing of application/json type post data
-app.use(bodyParser.json());
-
-//support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(session({
-	secret: SECRETKEY,
-	resave: true,
-	saveUninitialized: true
+	name: 'shopcart',
+	secret: [SECRETKEY]
 }));
 
 const products = [
