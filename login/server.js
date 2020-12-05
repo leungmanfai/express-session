@@ -16,17 +16,17 @@ const users = new Array(
 app.set('view engine','ejs');
 
 app.use(session({
-  name: 'session',
+  name: 'loginSession',
   keys: [SECRETKEY1,SECRETKEY2]
 }));
 
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 // support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req,res) => {
-	console.log(req.session);
+	//console.log(req.session);
 	if (!req.session.authenticated) {
 		res.redirect('/login');
 	} else {
@@ -35,14 +35,14 @@ app.get('/', (req,res) => {
 });
 
 app.get('/login', (req,res) => {
-	res.status(200).sendFile(__dirname + '/public/login.html');
+	res.status(200).render('login',{});
 });
 
 app.post('/login', (req,res) => {
 	users.forEach((user) => {
 		if (user.name == req.body.name && user.password == req.body.password) {
 			req.session.authenticated = true;
-			req.session.username = user.name;			
+			req.session.username = req.body.name;			
 		}
 	});
 	res.redirect('/');
