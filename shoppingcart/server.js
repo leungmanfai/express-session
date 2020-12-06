@@ -6,7 +6,7 @@ const SECRETKEY = 'I want to pass COMPS381F';
 
 app.use(session({
 	name: 'shopcart',
-	secret: [SECRETKEY]
+	keys: [SECRETKEY]
 }));
 
 const products = [
